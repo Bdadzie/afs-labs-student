@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: db-deployment
   namespace: bdadzie
   labels:
-    app: app
+    app: db
 spec:
   replicas: 1
   strategy:
@@ -12,17 +12,17 @@ spec:
   minReadySeconds: 20
   selector:
     matchLabels:
-      app: app
+      app: db
   template:
     metadata:
       labels:
-        app: app
+        app: db
     spec:
       containers:
       - envFrom:
         - secretRef:
             name: db-secret
-        name: app-deployment
-        image: harbor.dev.afsmtddso.com/bdadzie-harbor-project/app@sha256:7aa499e6d5d2bb2526d7a4ca85ce193585d77b7d20a0dee98c051160c7a039a8
+        name: db-deployment
+        image: harbor.dev.afsmtddso.com/bdadzie-harbor-project/db@sha256:f170132f0ffdcbb4374b41593b913d3163da868d63afde2db9d8684dd3c1311d
         ports:
-        - containerPort: 500
+        - containerPort: 5432
